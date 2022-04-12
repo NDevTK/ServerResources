@@ -1,0 +1,28 @@
+name: Deploy
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build:
+    name: Create artifacts
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Zip folder
+      run: |
+        sudo apt install -y zip
+        rm -f docs/pack.zip
+        zip -r docs/pack.zip default/
+        
+    - name: Commit files
+      run: |
+        git pull
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "Deploy [Auto]" -a
+    - name: Push changes
+      uses: NDevTK/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
