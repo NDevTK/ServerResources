@@ -15,7 +15,7 @@ jobs:
     - name: Zip folder
       run: |
         rm -f docs/pack.zip
-        zip -r docs/pack.zip default/
+        zip -r docs/pack.zip default/*
         
     - name: Commit files
       run: |
