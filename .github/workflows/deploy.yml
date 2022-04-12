@@ -8,10 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@master
+      with:
+        persist-credentials: false
+        fetch-depth: 0
     - name: Zip folder
       run: |
-        sudo apt install -y zip
         rm -f docs/pack.zip
         zip -r docs/pack.zip default/
         
